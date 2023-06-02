@@ -49,6 +49,15 @@
   border-style: none;
   font-weight: bold;
 }
+#btn1 {
+  margin-top: 20px;
+  height: 40px;
+  width: 100px;
+  border-radius: 10px 10px 10px 10px;
+  border-style: none;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
 .box3 {
   display: flex;
   justify-content: space-evenly;
