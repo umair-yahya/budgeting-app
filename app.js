@@ -23,31 +23,45 @@ function setBudget() {
     location.href = location.href;
     return true;
   } else {
-    alert("Please enter numbers only.");
+    var p1 = document.getElementById("p1");
+    p1.innerHTML = "Please enter numbers only.";
     return false;
   }
 }
 //Set Budget function end
 
+var sum = 0;
+
 //Total expences function start
 function totalExpences() {
   var oldData = JSON.parse(localStorage.getItem("Expences")) ?? [];
-  var obj = {
-    id: oldData.length > 0 ? oldData[oldData.length - 1].id + 1 : 1,
-    amount: totalAmount.value,
-    category: category.value,
-    date: date.value,
-    description: description.value,
-  };
-
+  const getBudget = JSON.parse(localStorage.getItem("Budget"));
+  var amount = sum + Number(totalAmount.value);
   const numbers = /^[0-9]+$/;
-  if (totalAmount.value.match(numbers)) {
-    localStorage.setItem("Expences", JSON.stringify([...oldData, obj]));
+  if (amount > getBudget) {
+    alert(
+      `Your enter amount is exceeded your budget amount.. \nAvailable balance is: ${
+        getBudget - sum
+      }`
+    );
     location.href = location.href;
-    return true;
   } else {
-    alert("Please enter numbers only.");
-    return false;
+    var obj = {
+      id: oldData.length > 0 ? oldData[oldData.length - 1].id + 1 : 1,
+      amount: totalAmount.value,
+      category: category.value,
+      date: date.value,
+      description: description.value,
+    };
+    if (totalAmount.value.match(numbers)) {
+      localStorage.setItem("Expences", JSON.stringify([...oldData, obj]));
+      location.href = location.href;
+      return true;
+    } else {
+      var p2 = document.getElementById("p2");
+      p2.innerHTML = "Please enter numbers only.";
+      return false;
+    }
   }
 }
 //Total expences function end
@@ -63,7 +77,6 @@ function alldata() {
   } else {
     totalBudget.innerHTML = "$" + getBudget;
   }
-  var sum = 0;
   getExpence.length &&
     getExpence.map((ele) => {
       return (sum += Number(ele.amount));
@@ -92,10 +105,24 @@ function alldata() {
     myDiv.innerHTML = mapData;
     totalItems.innerHTML = "Number of transaction: " + arr.length;
   }
+  const weekday = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
   const date = new Date();
   const setDate =
-    date.getFullYear() + "/" + (date.getMonth() + 1) + "/" + date.getDate();
-  console.log(setDate);
+    weekday[date.getDay()] +
+    "/" +
+    date.getFullYear() +
+    "/" +
+    (date.getMonth() + 1) +
+    "/" +
+    date.getDate();
   currentDate.innerHTML = "Current Date: " + setDate;
   totalValue.innerHTML = "Value: $" + sum;
 }
@@ -154,9 +181,10 @@ function editList() {
     localStorage.setItem("Expences", JSON.stringify(oldData));
     location.href = location.href;
   } else {
-    alert("Please enter numbers only.");
+    var p3 = document.getElementById("p3");
+    p3.innerHTML = "Please enter numbers only.";
+    modal.style.display = "block";
   }
-  modal.style.display = "none";
 }
 //Edit function end
 
