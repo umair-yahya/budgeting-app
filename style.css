@@ -127,6 +127,10 @@
   background-color: rgb(186, 128, 240);
   transition: 0.5s;
 }
+#btn1:hover {
+  background-color: rgb(186, 128, 240);
+  transition: 0.5s;
+}
 #heading {
   text-decoration: underline;
   color: black;
